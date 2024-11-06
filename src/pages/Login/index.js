@@ -1,16 +1,15 @@
 import clubPetLogo from "../../assets/pet.png";
-import InputComponent from "../../components/InputComponent";
+import InputEmail from "../../components/InputEmail";
 
 const Login = () => {
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
-            alt="ClubPet Logo"
-            src={clubPetLogo}
-            className="mx-auto h-10 w-auto"
-          />
+          <div className="flex items-center justify-center gap-3">
+            <img alt="ClubPet Logo" src={clubPetLogo} className="h-10 w-auto" />
+            <p className="text-2xl font-bold">ClubPet</p>
+          </div>
           <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
             Faça login na sua conta
           </h2>
@@ -18,12 +17,7 @@ const Login = () => {
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form action="#" method="POST" className="space-y-6">
-            <InputComponent
-              inputId="email"
-              inputType="email"
-              inputPlaceholder="Email"
-              inputText="Digite seu email"
-            />
+            <InputEmail />
 
             <div>
               <div className="flex items-center justify-between">

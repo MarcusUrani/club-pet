@@ -6,6 +6,7 @@ import Register from "./pages/Registration";
 
 const router = createBrowserRouter([
   { path: "/", element: <Login /> },
+  { path: "/login", element: <Login /> },
   { path: "/registro", element: <Register /> },
   { path: "*", element: <NotFound /> },
 ]);
