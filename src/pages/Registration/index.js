@@ -6,6 +6,7 @@ import InputEmail from "../../components/InputEmail";
 import InputSenha from "../../components/InputSenha";
 import InputConfirmarSenha from "../../components/InputConfirmarSenha";
 import InputNome from "../../components/InputNome";
+import { Link } from "react-router-dom";
 
 const Register = (props) => {
   return (
@@ -69,12 +70,12 @@ const Register = (props) => {
 
           <p className="mt-10 text-center text-sm/6 text-gray-500">
             Já possui cadastro?{" "}
-            <a
-              href="/"
+            <Link
+              to="/"
               className="font-semibold text-indigo-600 hover:text-indigo-500"
             >
               Faça login aqui
-            </a>
+            </Link>
           </p>
         </div>
       </div>

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import clubPetLogo from "../../assets/pet.png";
 import InputEmail from "../../components/InputEmail";
 
@@ -31,12 +32,12 @@ const Login = (props) => {
                   Digite sua senha
                 </label>
                 <div className="text-sm">
-                  <a
-                    href="/"
+                  <Link
+                    to="/"
                     className="font-semibold text-indigo-600 hover:text-indigo-500"
                   >
                     Esqueceu a senha?
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div className="mt-2">
@@ -64,12 +65,12 @@ const Login = (props) => {
 
           <p className="mt-10 text-center text-sm/6 text-gray-500">
             Não possui cadastro?{" "}
-            <a
-              href="/registro"
+            <Link
+              to="/registro"
               className="font-semibold text-indigo-600 hover:text-indigo-500"
             >
               Cadastre-se aqui
-            </a>
+            </Link>
           </p>
         </div>
       </div>
