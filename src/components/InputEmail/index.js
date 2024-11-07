@@ -1,10 +1,6 @@
-import { useState, useContext } from "react";
-import { NomeContext } from "../../context/NomeContext/NomeContext";
+import { useState } from "react";
 
-const InputEmail = () => {
-  const { nome } = useContext(NomeContext);
-  const [email, setEmail] = useState("");
-  const [emailValido, setEmailValido] = useState(true);
+const InputEmail = (props) => {
   const [mensagemErro, setMensagemErro] = useState("");
 
   const validarEmail = (email) => {
@@ -35,13 +31,13 @@ const InputEmail = () => {
           placeholder="Email"
           required
           onBlur={(event) => {
-            setEmail(event.target.value);
-            setEmailValido(validarEmail(event.target.value));
+            props.setEmail(event.target.value);
+            props.setEmailValido(validarEmail(event.target.value));
           }}
           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
         />
       </div>
-      {emailValido === false ? (
+      {props.emailValido === false ? (
         <p className="text-left font-bold text-sm text-red-500">
           {mensagemErro}
         </p>

@@ -1,7 +1,7 @@
 import clubPetLogo from "../../assets/pet.png";
 import InputEmail from "../../components/InputEmail";
 
-const Login = () => {
+const Login = (props) => {
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -17,8 +17,11 @@ const Login = () => {
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form action="#" method="POST" className="space-y-6">
-            <InputEmail />
-
+            <InputEmail
+              setEmail={props.setEmail}
+              emailValido={props.emailValido}
+              setEmailValido={props.setEmailValido}
+            />
             <div>
               <div className="flex items-center justify-between">
                 <label

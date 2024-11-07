@@ -1,10 +1,6 @@
-import { useState } from "react";
-
-const SeletorUsuario = () => {
-  const [opcaoSelecionada, setOpcaoSelecionada] = useState("donoDePet");
-
+const SeletorUsuario = (props) => {
   const handleChange = (e) => {
-    setOpcaoSelecionada(e.target.value);
+    props.setOpcaoSelecionada(e.target.value);
   };
 
   return (
@@ -25,7 +21,7 @@ const SeletorUsuario = () => {
             name="donoDePet"
             value="donoDePet"
             id="donoDePet"
-            checked={opcaoSelecionada === "donoDePet"}
+            checked={props.opcaoSelecionada === "donoDePet"}
             onChange={handleChange}
           ></input>
         </div>
@@ -41,7 +37,7 @@ const SeletorUsuario = () => {
             name="cuidador"
             value="cuidador"
             id="cuidador"
-            checked={opcaoSelecionada === "cuidador"}
+            checked={props.opcaoSelecionada === "cuidador"}
             onChange={handleChange}
           ></input>
         </div>
@@ -57,7 +53,7 @@ const SeletorUsuario = () => {
             name="treinador"
             value="treinador"
             id="treinador"
-            checked={opcaoSelecionada === "treinador"}
+            checked={props.opcaoSelecionada === "treinador"}
             onChange={handleChange}
           ></input>
         </div>

@@ -1,13 +1,13 @@
 import clubPetLogo from "../../assets/pet.png";
 import SeletorUsuario from "../../components/SeletorUsuario";
-import InputNome from "../../components/InputNome";
 import InputCpf from "../../components/InputCpf";
 import InputTelefone from "../../components/InputTelefone";
 import InputEmail from "../../components/InputEmail";
 import InputSenha from "../../components/InputSenha";
 import InputConfirmarSenha from "../../components/InputConfirmarSenha";
+import InputNome from "../../components/InputNome";
 
-const Register = () => {
+const Register = (props) => {
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -22,13 +22,41 @@ const Register = () => {
         </div>
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form action="#" method="POST" className="space-y-6">
-            <SeletorUsuario />
-            <InputNome />
-            <InputCpf />
-            <InputTelefone />
-            <InputEmail />
-            <InputSenha />
-            <InputConfirmarSenha />
+            <SeletorUsuario
+              opcaoSelecionada={props.opcaoSelecionada}
+              setOpcaoSelecionada={props.setOpcaoSelecionada}
+            />
+            <InputNome
+              setNome={props.setNome}
+              nomeValido={props.nomeValido}
+              setNomeValido={props.setNomeValido}
+            />
+            <InputCpf
+              setCpf={props.setCpf}
+              cpfValido={props.cpfValido}
+              setCpfValido={props.setCpfValido}
+            />
+            <InputTelefone
+              setTelefone={props.setTelefone}
+              telefoneValido={props.telefoneValido}
+              setTelefoneValido={props.setTelefoneValido}
+            />
+            <InputEmail
+              setEmail={props.setEmail}
+              emailValido={props.emailValido}
+              setEmailValido={props.setEmailValido}
+            />
+            <InputSenha
+              setSenha={props.setSenha}
+              senhaValida={props.senhaValida}
+              setSenhaValida={props.setSenhaValida}
+            />
+            <InputConfirmarSenha
+              senha={props.senha}
+              setSegundaSenha={props.setSegundaSenha}
+              segundaSenhaValida={props.segundaSenhaValida}
+              setSegundaSenhaValida={props.setSegundaSenhaValida}
+            />
             <div>
               <button
                 type="submit"

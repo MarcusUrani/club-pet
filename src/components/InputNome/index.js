@@ -1,8 +1,6 @@
-import { useState, useContext } from "react";
-import { NomeContext } from "../../context/NomeContext/NomeContext";
+import { useState } from "react";
 
-const InputNome = () => {
-  let { nome, nomeValido } = useContext(NomeContext);
+const InputNome = (props) => {
   const [mensagemErro, setMensagemErro] = useState("O nome não é válido");
 
   const validarNome = (nome) => {
@@ -12,8 +10,6 @@ const InputNome = () => {
     } else if (!regex.test(nome)) {
       setMensagemErro("O nome informado é inválido");
     }
-
-    console.log(nome);
 
     return regex.test(nome);
   };
@@ -34,13 +30,13 @@ const InputNome = () => {
           placeholder="Nome"
           required
           onBlur={(event) => {
-            nome = event.target.value;
-            nomeValido = validarNome(event.target.value);
+            props.setNome(event.target.value);
+            props.setNomeValido(validarNome(event.target.value));
           }}
           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
         />
       </div>
-      {nomeValido === false ? (
+      {props.nomeValido === false ? (
         <p className="text-left font-bold text-sm text-red-500">
           {mensagemErro}
         </p>
