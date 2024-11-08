@@ -6,9 +6,26 @@ import InputEmail from "../../components/InputEmail";
 import InputSenha from "../../components/InputSenha";
 import InputConfirmarSenha from "../../components/InputConfirmarSenha";
 import InputNome from "../../components/InputNome";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = (props) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = () => {
+    if (
+      props.nomeValido === true &&
+      props.cpfValido === true &&
+      props.emailValido === true &&
+      props.telefoneValido === true &&
+      props.senhaValida === true &&
+      props.segundaSenhaValida === true
+    ) {
+      navigate("/registro_final");
+    } else {
+      return false;
+    }
+  };
+
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -22,7 +39,13 @@ const Register = (props) => {
           </h2>
         </div>
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action="#" method="POST" className="space-y-6">
+          <form
+            className="space-y-6"
+            onSubmit={(event) => {
+              event.preventDefault();
+              handleSubmit();
+            }}
+          >
             <SeletorUsuario
               opcaoSelecionada={props.opcaoSelecionada}
               setOpcaoSelecionada={props.setOpcaoSelecionada}
