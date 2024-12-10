@@ -33,6 +33,7 @@ const Register = (props) => {
             method: "POST",
             cors: "no-cors",
             headers: {
+              "Access-Control-Allow-Origin": "*",
               "Content-Type": "application/json",
             },
             body: JSON.stringify(_data),
