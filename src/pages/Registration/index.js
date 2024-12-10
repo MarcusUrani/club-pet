@@ -11,7 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 const Register = (props) => {
   const navigate = useNavigate();
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (
       props.nomeValido === true &&
       props.cpfValido === true &&
@@ -20,8 +20,39 @@ const Register = (props) => {
       props.senhaValida === true &&
       props.segundaSenhaValida === true
     ) {
-      navigate("/registro_final");
+      const _data = {
+        username: props.email,
+        passwordHash: props.senha,
+      };
+
+      try {
+        const response = await fetch(
+          "https://localhost:7026/api/auth/register",
+          {
+            method: "POST",
+            cors: "no-cors",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(_data),
+          }
+        );
+
+        console.log(response);
+
+        if (response.ok) {
+          navigate("/registro_final");
+        } else {
+          const errorData = await response.json();
+          console.error("Erro no registro:", errorData);
+          alert("Falha no registro. Por favor, tente novamente.");
+        }
+      } catch (error) {
+        console.error("Erro na requisição:", error);
+        alert("Ocorreu um erro ao processar sua solicitação.");
+      }
     } else {
+      alert("Por favor, preencha todos os campos corretamente.");
       return false;
     }
   };
