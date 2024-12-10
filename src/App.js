@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import Register from "./pages/Registration";
+import SecondRegistration from "./pages/SecondRegistration";
 
 function App() {
   const [nome, setNome] = useState("");
@@ -64,6 +65,10 @@ function App() {
           setOpcaoSelecionada={setOpcaoSelecionada}
         />
       ),
+    },
+    {
+      path: "/registro_final",
+      element: <SecondRegistration />,
     },
     { path: "*", element: <NotFound /> },
   ]);
