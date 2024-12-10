@@ -26,14 +26,11 @@ const Register = (props) => {
       };
 
       try {
-        console.log("Teste");
         const response = await fetch(
           "https://localhost:7026/api/auth/register",
           {
             method: "POST",
-            cors: "no-cors",
             headers: {
-              "Access-Control-Allow-Origin": "*",
               "Content-Type": "application/json",
             },
             body: JSON.stringify(_data),
