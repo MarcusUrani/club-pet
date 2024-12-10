@@ -42,6 +42,7 @@ const Register = (props) => {
 
         if (response.ok) {
           navigate("/registro_final");
+          console.log(response);
         } else {
           const errorData = await response.json();
           console.error("Erro no registro:", errorData);
