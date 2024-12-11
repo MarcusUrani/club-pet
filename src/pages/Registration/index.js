@@ -7,7 +7,6 @@ import InputSenha from "../../components/InputSenha";
 import InputConfirmarSenha from "../../components/InputConfirmarSenha";
 import InputNome from "../../components/InputNome";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useState } from "react";
 
 const Register = (props) => {
@@ -24,28 +23,31 @@ const Register = (props) => {
       props.segundaSenhaValida === true
     ) {
       try {
-        const response = await axios.post(
+        const response = await fetch(
           "https://localhost:7132/api/auth/register",
           {
-            username: props.email,
-            passwordHash: props.senha,
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              username: props.email,
+              passwordHash: props.senha,
+            }),
           }
         );
 
-        if (response.status === 200 || response.status === 201) {
+        if (response.ok) {
           navigate("/registro_final");
         } else {
+          const errorData = await response.json();
           setErrorMessage(
-            response.data.message ||
+            errorData.message ||
               "Falha no registro. Por favor, tente novamente."
           );
         }
       } catch (error) {
-        const errorResponse = error.response;
-        setErrorMessage(
-          errorResponse?.data?.message ||
-            "Ocorreu um erro ao processar sua solicitação."
-        );
+        setErrorMessage("Ocorreu um erro ao processar sua solicitação.");
       }
     } else {
       setErrorMessage("Por favor, preencha todos os campos corretamente.");
