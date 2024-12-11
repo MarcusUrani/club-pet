@@ -27,6 +27,7 @@ const Register = (props) => {
           "https://localhost:7132/api/auth/register",
           {
             method: "POST",
+            cors: "no-cors",
             headers: {
               "Content-Type": "application/json",
             },
