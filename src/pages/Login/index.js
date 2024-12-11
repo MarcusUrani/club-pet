@@ -12,28 +12,31 @@ const Login = (props) => {
     event.preventDefault();
     setErrorMessage("");
 
-    try {
-      const response = await fetch("https://localhost:7026/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: props.email,
-          passwordHash: password,
-        }),
-      });
+    if (props.email && props.password) {
+      try {
+        const response = await fetch("https://localhost:7026/api/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: props.email,
+            passwordHash: password,
+          }),
+        });
 
-      if (response.status === 401) {
-        setErrorMessage("Credenciais inválidas");
-      } else if (response.status === 200 || response.status === 201) {
-        const data = await response.json();
-        console.log("Login bem-sucedido:", data);
-        navigate("/dashboard");
+        if (response.status === 401) {
+          setErrorMessage("Credenciais inválidas");
+        } else if (response.status === 200 || response.status === 201) {
+          localStorage.setItem("isAuthenticated", true);
+          navigate("/dashboard");
+        }
+      } catch (error) {
+        console.error("Erro no login:", error);
+        setErrorMessage(error.message);
       }
-    } catch (error) {
-      console.error("Erro no login:", error);
-      setErrorMessage(error.message);
+    } else {
+      setErrorMessage("Por favor, preencha todos os campos corretamente.");
     }
   };
 

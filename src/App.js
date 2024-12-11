@@ -1,11 +1,16 @@
 import "./App.css";
-import { useState } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { useEffect, useState } from "react";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  useNavigate,
+} from "react-router-dom";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import Register from "./pages/Registration";
 import SecondRegistration from "./pages/SecondRegistration";
 import Home from "./pages/Home";
+import PrivateRoute from "./pages/PrivateRoute";
 
 function App() {
   const [nome, setNome] = useState("");
@@ -21,6 +26,18 @@ function App() {
   const [segundaSenha, setSegundaSenha] = useState("");
   const [segundaSenhaValida, setSegundaSenhaValida] = useState(true);
   const [opcaoSelecionada, setOpcaoSelecionada] = useState("donoDePet");
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem("isAuthenticated");
+
+    if (isAuthenticated) {
+      navigate("/"); // Redireciona para a home se estiver logado
+    } else {
+      navigate("/login"); // Redireciona para o login se não estiver logado
+    }
+  }, [navigate]);
 
   const router = createBrowserRouter([
     {
@@ -73,7 +90,11 @@ function App() {
     },
     {
       path: "/dashboard",
-      element: <Home />,
+      element: (
+        <PrivateRoute>
+          <Home />
+        </PrivateRoute>
+      ),
     },
     { path: "*", element: <NotFound /> },
   ]);
