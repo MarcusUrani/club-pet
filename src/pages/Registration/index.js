@@ -37,18 +37,19 @@ const Register = (props) => {
           }
         );
 
-        console.log(response);
-
         if (response.ok) {
           navigate("/registro_final");
+          console.log(response);
         } else {
           const errorData = await response.json();
+          console.log(response);
           setErrorMessage(
             errorData.message ||
               "Falha no registro. Por favor, tente novamente."
           );
         }
       } catch (error) {
+        console.log(error);
         setErrorMessage("Ocorreu um erro ao processar sua solicitação.");
       }
     } else {
