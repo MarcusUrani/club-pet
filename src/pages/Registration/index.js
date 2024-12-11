@@ -43,7 +43,7 @@ const Register = (props) => {
           console.log(response);
         } else {
           const errorData = await response.json();
-          console.log(response);
+          console.log(errorData);
           setErrorMessage(
             errorData.message ||
               "Falha no registro. Por favor, tente novamente."
