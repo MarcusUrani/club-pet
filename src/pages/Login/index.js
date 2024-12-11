@@ -1,8 +1,43 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import clubPetLogo from "../../assets/pet.png";
 import InputEmail from "../../components/InputEmail";
+import { useState } from "react";
 
 const Login = (props) => {
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    setErrorMessage("");
+
+    try {
+      const response = await fetch("https://localhost:7026/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: props.email,
+          password: password,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Erro ao realizar login.");
+      }
+
+      const data = await response.json();
+      console.log("Login bem-sucedido:", data);
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Erro no login:", error);
+      setErrorMessage(error.message);
+    }
+  };
+
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -17,7 +52,7 @@ const Login = (props) => {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={handleLogin}>
             <InputEmail
               setEmail={props.setEmail}
               emailValido={props.emailValido}
@@ -48,10 +83,16 @@ const Login = (props) => {
                   placeholder="Senha"
                   required
                   autoComplete="current-password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
                 />
               </div>
             </div>
+
+            {errorMessage && (
+              <div className="text-red-500 text-sm mt-2">{errorMessage}</div>
+            )}
 
             <div>
               <button

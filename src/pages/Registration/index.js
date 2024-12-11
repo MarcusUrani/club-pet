@@ -47,7 +47,9 @@ const Register = (props) => {
           );
         }
       } catch (error) {
-        setErrorMessage("Ocorreu um erro ao processar sua solicitação.");
+        setErrorMessage(
+          "Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente."
+        );
       }
     } else {
       setErrorMessage("Por favor, preencha todos os campos corretamente.");
