@@ -50,6 +50,7 @@ const Register = (props) => {
           );
         }
       } catch (error) {
+        console.log(error);
         setErrorMessage("Ocorreu um erro ao processar sua solicitação.");
       }
     } else {
