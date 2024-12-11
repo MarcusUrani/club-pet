@@ -7,9 +7,11 @@ import InputSenha from "../../components/InputSenha";
 import InputConfirmarSenha from "../../components/InputConfirmarSenha";
 import InputNome from "../../components/InputNome";
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Register = (props) => {
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async () => {
     if (
@@ -20,40 +22,35 @@ const Register = (props) => {
       props.senhaValida === true &&
       props.segundaSenhaValida === true
     ) {
-      const _data = {
-        username: props.email,
-        passwordHash: props.senha,
-      };
-
       try {
         const response = await fetch(
-          "https://localhost:7026/api/auth/register",
+          "https://localhost:7132/api/auth/register",
           {
             method: "POST",
-            cors: "no-cors",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(_data),
+            body: JSON.stringify({
+              username: props.email,
+              passwordHash: props.senha,
+            }),
           }
         );
 
-        console.log(response);
-
         if (response.ok) {
           navigate("/registro_final");
-          console.log(response);
         } else {
           const errorData = await response.json();
-          console.error("Erro no registro:", errorData);
-          alert("Falha no registro. Por favor, tente novamente.");
+          setErrorMessage(
+            errorData.message ||
+              "Falha no registro. Por favor, tente novamente."
+          );
         }
       } catch (error) {
-        console.error("Erro na requisição:", error);
-        alert("Ocorreu um erro ao processar sua solicitação.");
+        setErrorMessage("Ocorreu um erro ao processar sua solicitação.");
       }
     } else {
-      alert("Por favor, preencha todos os campos corretamente.");
+      setErrorMessage("Por favor, preencha todos os campos corretamente.");
       return false;
     }
   };
@@ -122,6 +119,11 @@ const Register = (props) => {
               </button>
             </div>
           </form>
+          {errorMessage && (
+            <p className="mt-4 text-center text-sm text-red-500">
+              {errorMessage}
+            </p>
+          )}
 
           <p className="mt-10 text-center text-sm/6 text-gray-500">
             Já possui cadastro?{" "}

@@ -1,7 +1,7 @@
 const SecondRegistration = () => {
   return (
     <div>
-      <p>Segundo registro</p>
+      <p>Registro completo</p>
     </div>
   );
 };
