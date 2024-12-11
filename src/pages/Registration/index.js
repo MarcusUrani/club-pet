@@ -37,6 +37,8 @@ const Register = (props) => {
           }
         );
 
+        console.log(response);
+
         if (response.ok) {
           navigate("/registro_final");
         } else {
