@@ -41,16 +41,12 @@ const Register = (props) => {
         if (response.ok) {
           navigate("/registro_final");
           console.log(response);
-        } else {
-          const errorData = await response.json();
-          console.log(response);
+        } else if (response.status === 400) {
           setErrorMessage(
-            errorData.message ||
-              "Falha no registro. Por favor, tente novamente."
+            "Esse usuário já está registrado. Por favor, tente novamente."
           );
         }
       } catch (error) {
-        console.log(error);
         setErrorMessage("Ocorreu um erro ao processar sua solicitação.");
       }
     } else {
