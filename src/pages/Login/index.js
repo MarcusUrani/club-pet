@@ -24,14 +24,13 @@ const Login = (props) => {
         }),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Erro ao realizar login.");
+      if (response.status === 401) {
+        setErrorMessage("Credenciais inválidas");
+      } else if (response.status === 200 || response.status === 201) {
+        const data = await response.json();
+        console.log("Login bem-sucedido:", data);
+        navigate("/dashboard");
       }
-
-      const data = await response.json();
-      console.log("Login bem-sucedido:", data);
-      navigate("/dashboard");
     } catch (error) {
       console.error("Erro no login:", error);
       setErrorMessage(error.message);
