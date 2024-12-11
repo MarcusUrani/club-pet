@@ -1,21 +1,29 @@
 import { Link, useNavigate } from "react-router-dom";
 import clubPetLogo from "../../assets/pet.png";
-import InputEmail from "../../components/InputEmail";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Login = (props) => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const [password, setPassword] = useState("");
 
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem("isAuthenticated");
+
+    if (isAuthenticated) {
+      navigate("/dashboard"); // Redireciona para a home se estiver logado
+    }
+  }, [navigate]);
+
   const handleLogin = async (event) => {
     event.preventDefault();
     setErrorMessage("");
 
-    if (props.email && props.password) {
+    if (props.email.length > 0 && password.length > 0) {
       try {
         const response = await fetch("https://localhost:7026/api/auth/login", {
           method: "POST",
+          cors: "no-cors",
           headers: {
             "Content-Type": "application/json",
           },
@@ -55,11 +63,27 @@ const Login = (props) => {
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form className="space-y-6" onSubmit={handleLogin}>
-            <InputEmail
-              setEmail={props.setEmail}
-              emailValido={props.emailValido}
-              setEmailValido={props.setEmailValido}
-            />
+            <div>
+              <label
+                htmlFor="email"
+                className="block text-sm/6 font-medium text-gray-900 text-left"
+              >
+                Digite seu email
+              </label>
+              <div className="mt-2">
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="Email"
+                  required
+                  onBlur={(event) => {
+                    props.setEmail(event.target.value);
+                  }}
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                />
+              </div>
+            </div>
             <div>
               <div className="flex items-center justify-between">
                 <label

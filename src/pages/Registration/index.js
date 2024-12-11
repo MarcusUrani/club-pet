@@ -7,11 +7,19 @@ import InputSenha from "../../components/InputSenha";
 import InputConfirmarSenha from "../../components/InputConfirmarSenha";
 import InputNome from "../../components/InputNome";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Register = (props) => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem("isAuthenticated");
+
+    if (isAuthenticated) {
+      navigate("/dashboard"); // Redireciona para a home se estiver logado
+    }
+  }, [navigate]);
 
   const handleSubmit = async () => {
     if (
