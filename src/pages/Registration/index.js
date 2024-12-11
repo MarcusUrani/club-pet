@@ -22,39 +22,37 @@ const Register = (props) => {
       props.senhaValida === true &&
       props.segundaSenhaValida === true
     ) {
+      const _data = {
+        username: props.email,
+        passwordHash: props.senha,
+      };
       try {
         const response = await fetch(
-          "https://localhost:7132/api/auth/register",
+          "https://localhost:7026/api/auth/register",
           {
             method: "POST",
             cors: "no-cors",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-              username: props.email,
-              passwordHash: props.senha,
-            }),
+            body: JSON.stringify(_data),
           }
         );
-
+        console.log(response);
         if (response.ok) {
           navigate("/registro_final");
           console.log(response);
         } else {
           const errorData = await response.json();
-          console.log(response);
-          setErrorMessage(
-            errorData.message ||
-              "Falha no registro. Por favor, tente novamente."
-          );
+          console.error("Erro no registro:", errorData);
+          alert("Falha no registro. Por favor, tente novamente.");
         }
       } catch (error) {
-        console.log(error);
-        setErrorMessage("Ocorreu um erro ao processar sua solicitação.");
+        console.error("Erro na requisição:", error);
+        alert("Ocorreu um erro ao processar sua solicitação.");
       }
     } else {
-      setErrorMessage("Por favor, preencha todos os campos corretamente.");
+      alert("Por favor, preencha todos os campos corretamente.");
       return false;
     }
   };
