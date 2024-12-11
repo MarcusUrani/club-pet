@@ -20,7 +20,7 @@ const Login = (props) => {
         },
         body: JSON.stringify({
           username: props.email,
-          password: password,
+          passwordHash: password,
         }),
       });
 
