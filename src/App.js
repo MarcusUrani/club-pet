@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import Register from "./pages/Registration";
 import SecondRegistration from "./pages/SecondRegistration";
+import Home from "./pages/Home";
 
 function App() {
   const [nome, setNome] = useState("");
@@ -69,6 +70,10 @@ function App() {
     {
       path: "/registro_final",
       element: <SecondRegistration />,
+    },
+    {
+      path: "/dashboard",
+      element: <Home />,
     },
     { path: "*", element: <NotFound /> },
   ]);
